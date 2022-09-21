@@ -9,24 +9,20 @@ public class PlayerManager : MonoBehaviour
 {
 
     public static PlayerManager _instance;
-    public event Action OnNewTurn;
+    public static List<Player> _activePlayers = new List<Player>();
 
-    #region Player count/current Player
+    public event Action OnNewTurn;
 
     private static int _startPlayerCount = 0;
     public int _currentPlayerCount;
     public int _turnCount;
     public int _roundCount;
 
-
     [SerializeField] private GameObject _player;
-    [SerializeField] private List<Player> _activePlayers = new List<Player>();
     [SerializeField] private List<Transform> _spawnPoints;
 
     public static Player _currentPlayer;
     private int _currentPlayerIndex;
-
-    #endregion
 
     private void Awake()
     {
@@ -61,17 +57,7 @@ public class PlayerManager : MonoBehaviour
         SpawnPlayers();
         _currentPlayerIndex = 0;
         _currentPlayer = _activePlayers[_currentPlayerIndex];
-        _currentPlayer.EnablePlayer();
-
-        for (int i = 0; i < _activePlayers.Count; i++)
-        {
-            _activePlayers[i]._health.OnPlayerDeath += OnPlayerDeath;
-        }
-
-        Debug.Log(_startPlayerCount);
-        Debug.Log(_activePlayers.Count);
-        Debug.Log(_currentPlayer);
-
+        _currentPlayer.SetCurrentPlayer(true);
     }
 
     private List<Transform> GetSpawnPoints()
@@ -95,44 +81,34 @@ public class PlayerManager : MonoBehaviour
         {
             var playerObject = Instantiate(_player, _spawnPoints[i].position, Quaternion.identity);
             playerObject.name = "Player " + (i + 1);
-            AddPlayerToList(playerObject);
         }
-    }
-
-    private void AddPlayerToList(GameObject playerObject)
-    {
-       _activePlayers.Add(playerObject.GetComponent<Player>());
     }
 
     #endregion
 
     public void EndTurn()
     {
-
         StartCoroutine(EndturnWithWaitTime());
-
-
         IEnumerator EndturnWithWaitTime()
         {
-            _currentPlayer.DisablePlayer();
+            _currentPlayer.SetCurrentPlayer(false);
             yield return new WaitForSeconds(2);
+
             _currentPlayerIndex++;
             _currentPlayerIndex %= _currentPlayerCount;
             _currentPlayer = _activePlayers[_currentPlayerIndex];
-            Debug.Log(_currentPlayer.gameObject.name);
+
+            _turnCount++;
+            if (_turnCount % _currentPlayerCount == 0) { _roundCount++; }
+
             StartNewPlayerTurn();
         }    
     }
 
     private void StartNewPlayerTurn()
     {
-        _currentPlayer.EnablePlayer();
+        _currentPlayer.SetCurrentPlayer(true);
         OnNewTurn?.Invoke();
     }
 
-    private void OnPlayerDeath(Player player)
-    {
-        _activePlayers.Remove(player);
-        player.Die();
-    }
 }

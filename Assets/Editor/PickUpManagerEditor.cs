@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Timeline;
 using UnityEngine;
 
-public class PickUpManagerEditor : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+[CustomEditor(typeof(PickUpManager))]
+public class PickUpManagerEditor : Editor
+{
+    public override void OnInspectorGUI()
     {
-        
+        base.OnInspectorGUI();
+        PickUpManager manager = (PickUpManager)target;
+
+        if (GUILayout.Button("Spawn PickUp"))
+        {
+            manager.PickUpSpawn();
+        }
     }
 }

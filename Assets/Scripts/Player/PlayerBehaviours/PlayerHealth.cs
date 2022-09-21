@@ -20,7 +20,7 @@ public class PlayerHealth
             OnHealthUpdate?.Invoke(_thisPlayer);
             if (_health <= 0)
             {
-                OnPlayerDeath?.Invoke(_thisPlayer);
+                _thisPlayer.Die();
             }
         } 
     }
@@ -29,5 +29,10 @@ public class PlayerHealth
     {
         Health = health;
         _thisPlayer = player;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
     }
 }

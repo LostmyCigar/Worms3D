@@ -41,10 +41,14 @@ public class Player : MonoBehaviour
         _health = new PlayerHealth(this, _playerData._hp);
     }
 
+    private void OnEnable() => PlayerManager._activePlayers.Add(this);
+    private void OnDisable() => PlayerManager._activePlayers.Remove(this);
+
     private void Start()
     {
         AddWeapon(_playerData._startWeapon);
         _combat.InitWeaponInventory();
+        
     }
 
     private void Update()
@@ -63,11 +67,6 @@ public class Player : MonoBehaviour
             _movement.PhysicsUpdates();
         }
     }
-
-    public void TakeDamage(float damage)
-    {
-        _health.Health -= damage;
-    } 
 
     public void KnockBack(Vector3 dir, float force)
     {
@@ -88,13 +87,8 @@ public class Player : MonoBehaviour
         PlayerManager.GetInstance()._currentPlayerCount--;
     }
 
-    public void EnablePlayer()
+    public void SetCurrentPlayer(bool b)
     {
-        _isCurrentPlayer = true;
-    }
-
-    public void DisablePlayer()
-    {
-        _isCurrentPlayer = false;
+        _isCurrentPlayer = b;
     }
 }

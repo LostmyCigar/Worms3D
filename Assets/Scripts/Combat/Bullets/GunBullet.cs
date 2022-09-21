@@ -10,7 +10,7 @@ public class GunBullet : Bullet
         base.OnCollisionWall();
 
         var player = playerCollider.GetComponent<Player>();
-        player.TakeDamage(_damage);
+        player._health.TakeDamage(_damage);
     }
 
     protected override void OnCollisionWall()

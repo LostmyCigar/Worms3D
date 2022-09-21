@@ -42,7 +42,7 @@ public class PickUpManager : MonoBehaviour
         }
     }
 
-    private void PickUpSpawn()
+    public void PickUpSpawn()
     {
         var i = UnityEngine.Random.Range(0, _pickUps.Length);
         Instantiate(_pickUps[i], RandomSpawnPosition, Quaternion.identity);
