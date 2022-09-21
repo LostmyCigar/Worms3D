@@ -57,17 +57,19 @@ public class PickUpManager : MonoBehaviour
             float zCenter = _spawnPositionCenter.z;
 
             float xPositionMin = xCenter - (_spawnPositionArea.x / 2);
-            float xPositionMax = xCenter + (_spawnPositionArea.y / 2);
+            float xPositionMax = xCenter + (_spawnPositionArea.x / 2);
 
             float yPositionMin = yCenter - (_spawnPositionArea.y / 2);
-            float yPositionMax = yCenter + (_spawnPositionArea.z / 2);
+            float yPositionMax = yCenter + (_spawnPositionArea.y / 2);
 
             float zPositionMin = zCenter - (_spawnPositionArea.z / 2);
             float zPositionMax = zCenter + (_spawnPositionArea.z / 2);
 
-            float xPosition = UnityEngine.Random.Range(xPositionMin, xPositionMax);
-            float yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
-            float zPosition = UnityEngine.Random.Range(zPositionMin, zPositionMax);
+            int xPosition = Mathf.RoundToInt(UnityEngine.Random.Range(xPositionMin, xPositionMax));
+            int yPosition = Mathf.RoundToInt(UnityEngine.Random.Range(yPositionMin, yPositionMax));
+            int zPosition = Mathf.RoundToInt(UnityEngine.Random.Range(zPositionMin, zPositionMax));
+
+            Debug.Log(new Vector3(xPosition, yPosition, zPosition));
 
             return new Vector3(xPosition, yPosition, zPosition);
         }

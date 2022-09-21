@@ -79,6 +79,18 @@ public class Player : MonoBehaviour
         _combat.AddWeaponToInventory(newWeapon);
     }
 
+    public void StartPlayerTurn()
+    {
+        _isCurrentPlayer = true;
+        _weaponHolder.gameObject.SetActive(true);
+    }
+
+    public void EndPlayerTurn()
+    {
+        _isCurrentPlayer = false;
+        _weaponHolder.gameObject.SetActive(false);
+    }
+
     public void Die()
     {
         //Do death things...
@@ -87,8 +99,4 @@ public class Player : MonoBehaviour
         PlayerManager.GetInstance()._currentPlayerCount--;
     }
 
-    public void SetCurrentPlayer(bool b)
-    {
-        _isCurrentPlayer = b;
-    }
 }

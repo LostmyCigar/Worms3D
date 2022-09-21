@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     public int _turnCount;
     public int _roundCount;
 
+    [SerializeField] private Material[] _playerMaterials;
     [SerializeField] private GameObject _player;
     [SerializeField] private List<Transform> _spawnPoints;
 
@@ -38,7 +39,6 @@ public class PlayerManager : MonoBehaviour
         SceneManager.GetInstance().PlaySceneLoad += InitializePlayers;
     }
 
-
     public static PlayerManager GetInstance()
     {
         return _instance;
@@ -57,7 +57,7 @@ public class PlayerManager : MonoBehaviour
         SpawnPlayers();
         _currentPlayerIndex = 0;
         _currentPlayer = _activePlayers[_currentPlayerIndex];
-        _currentPlayer.SetCurrentPlayer(true);
+        _currentPlayer.StartPlayerTurn();
     }
 
     private List<Transform> GetSpawnPoints()
@@ -81,17 +81,20 @@ public class PlayerManager : MonoBehaviour
         {
             var playerObject = Instantiate(_player, _spawnPoints[i].position, Quaternion.identity);
             playerObject.name = "Player " + (i + 1);
+            playerObject.GetComponent<MeshRenderer>().material = _playerMaterials[i];
         }
     }
 
     #endregion
 
+    #region Player turns 
     public void EndTurn()
     {
         StartCoroutine(EndturnWithWaitTime());
         IEnumerator EndturnWithWaitTime()
         {
-            _currentPlayer.SetCurrentPlayer(false);
+            _currentPlayer.EndPlayerTurn();
+
             yield return new WaitForSeconds(2);
 
             _currentPlayerIndex++;
@@ -107,8 +110,9 @@ public class PlayerManager : MonoBehaviour
 
     private void StartNewPlayerTurn()
     {
-        _currentPlayer.SetCurrentPlayer(true);
+        _currentPlayer.StartPlayerTurn();
         OnNewTurn?.Invoke();
     }
 
+    #endregion
 }
