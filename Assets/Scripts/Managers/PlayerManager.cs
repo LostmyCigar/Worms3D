@@ -15,10 +15,12 @@ public class PlayerManager : MonoBehaviour
 
     private static int _startPlayerCount = 0;
     public int _currentPlayerCount;
+    public int _turnCount;
+    public int _roundCount;
 
 
     [SerializeField] private GameObject _player;
-    [SerializeField] private List<Player> _players = new List<Player>();
+    [SerializeField] private List<Player> _activePlayers = new List<Player>();
     [SerializeField] private List<Transform> _spawnPoints;
 
     public static Player _currentPlayer;
@@ -58,16 +60,16 @@ public class PlayerManager : MonoBehaviour
         _spawnPoints = GetSpawnPoints();
         SpawnPlayers();
         _currentPlayerIndex = 0;
-        _currentPlayer = _players[_currentPlayerIndex];
+        _currentPlayer = _activePlayers[_currentPlayerIndex];
         _currentPlayer.EnablePlayer();
 
-        for (int i = 0; i < _players.Count; i++)
+        for (int i = 0; i < _activePlayers.Count; i++)
         {
-            _players[i]._health.OnPlayerDeath += OnPlayerDeath;
+            _activePlayers[i]._health.OnPlayerDeath += OnPlayerDeath;
         }
 
         Debug.Log(_startPlayerCount);
-        Debug.Log(_players.Count);
+        Debug.Log(_activePlayers.Count);
         Debug.Log(_currentPlayer);
 
     }
@@ -87,7 +89,7 @@ public class PlayerManager : MonoBehaviour
 
     private void SpawnPlayers()
     {
-        _players.Clear();
+        _activePlayers.Clear();
         _currentPlayerCount = _startPlayerCount;
         for (int i = 0; i < _currentPlayerCount; i++)
         {
@@ -99,7 +101,7 @@ public class PlayerManager : MonoBehaviour
 
     private void AddPlayerToList(GameObject playerObject)
     {
-       _players.Add(playerObject.GetComponent<Player>());
+       _activePlayers.Add(playerObject.GetComponent<Player>());
     }
 
     #endregion
@@ -116,7 +118,7 @@ public class PlayerManager : MonoBehaviour
             yield return new WaitForSeconds(2);
             _currentPlayerIndex++;
             _currentPlayerIndex %= _currentPlayerCount;
-            _currentPlayer = _players[_currentPlayerIndex];
+            _currentPlayer = _activePlayers[_currentPlayerIndex];
             Debug.Log(_currentPlayer.gameObject.name);
             StartNewPlayerTurn();
         }    
@@ -130,7 +132,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnPlayerDeath(Player player)
     {
-        _players.Remove(player);
+        _activePlayers.Remove(player);
         player.Die();
     }
 }

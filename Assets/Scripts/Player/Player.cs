@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private Camera _camera;
     private Collider _collider;
     private CustomGravityObject _customGravityObject;
+    private Transform _weaponHolder;
 
     [SerializeField] private PlayerData _playerData;
 

@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 13.5
   _rotationSpeed: 10
+  _ground:
+    serializedVersion: 2
+    m_Bits: 64
   _jumpForce: 17
   _fallingGravityScale: 7
   _normalGravityScale: 4
   _startFallingVelocity: 0
   _hp: 100
+  _startWeapon: {fileID: 3844855169035904313, guid: 16dc4b12b2ca9784798ad0723a82c62b, type: 3}

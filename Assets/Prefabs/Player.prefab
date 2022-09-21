@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 11400000, guid: f1310a78889977349bf45aa1893d178d, type: 2}
-  _weaponHolder: {fileID: 4577692150134626733}
+  _weaponHolder: {fileID: 0}
   _isCurrentPlayer: 0
 --- !u!1 &4577692150134626734
 GameObject:
