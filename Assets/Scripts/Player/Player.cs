@@ -94,9 +94,14 @@ public class Player : MonoBehaviour
     public void Die()
     {
         //Do death things...
+        if (_isCurrentPlayer)
+        {
+            PlayerManager.GetInstance().EndTurn();
+        }
+        PlayerManager.GetInstance()._currentPlayerCount--;
+
 
         Destroy(gameObject);
-        PlayerManager.GetInstance()._currentPlayerCount--;
     }
 
 }

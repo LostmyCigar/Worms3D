@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
     public int _roundCount;
 
     [SerializeField] private Material[] _playerMaterials;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private List<Transform> _spawnPoints;
 
     public static Player _currentPlayer;
@@ -79,7 +79,7 @@ public class PlayerManager : MonoBehaviour
         _currentPlayerCount = _startPlayerCount;
         for (int i = 0; i < _currentPlayerCount; i++)
         {
-            var playerObject = Instantiate(_player, _spawnPoints[i].position, Quaternion.identity);
+            var playerObject = Instantiate(_playerPrefab, _spawnPoints[i].position, Quaternion.identity);
             playerObject.name = "Player " + (i + 1);
             playerObject.GetComponent<MeshRenderer>().material = _playerMaterials[i];
         }
@@ -93,9 +93,9 @@ public class PlayerManager : MonoBehaviour
         StartCoroutine(EndturnWithWaitTime());
         IEnumerator EndturnWithWaitTime()
         {
-            _currentPlayer.EndPlayerTurn();
-
             yield return new WaitForSeconds(2);
+
+            _currentPlayer.EndPlayerTurn();
 
             _currentPlayerIndex++;
             _currentPlayerIndex %= _currentPlayerCount;
@@ -104,14 +104,10 @@ public class PlayerManager : MonoBehaviour
             _turnCount++;
             if (_turnCount % _currentPlayerCount == 0) { _roundCount++; }
 
-            StartNewPlayerTurn();
-        }    
-    }
+            _currentPlayer.StartPlayerTurn();
 
-    private void StartNewPlayerTurn()
-    {
-        _currentPlayer.StartPlayerTurn();
-        OnNewTurn?.Invoke();
+            OnNewTurn?.Invoke();
+        }    
     }
 
     #endregion

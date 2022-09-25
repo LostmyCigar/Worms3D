@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2eef7cc90de7c4c9682faabd9c5132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapons:
-  - {fileID: 6541746042451702718, guid: 1855e40f9baa7d24d89b43ff3056f8f2, type: 3}
+  _spawnPositionCenter: {x: 0, y: 0, z: 0}
+  _spawnPositionArea: {x: 0, y: 0, z: 0}
+  _pickUps: []
+  _pickUpSpawnChance: 0
 --- !u!114 &8949249194452563053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +74,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8a375183b20b24bb9faa6300a27523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 4577692149400617975, guid: c48732dcf3a67b74eb596eb63ae26c02, type: 3}
-  _players: []
+  _currentPlayerCount: 0
+  _turnCount: 0
+  _roundCount: 0
+  _playerMaterials:
+  - {fileID: 2100000, guid: b900e5978a5d24c489aae9442ba0d26e, type: 2}
+  - {fileID: 2100000, guid: bc4b41466c18a4047bb485973fcc8b81, type: 2}
+  - {fileID: 2100000, guid: 80eedd8b2699dee45800c88c495b0dfd, type: 2}
+  - {fileID: 2100000, guid: 839cc82d2a2b34d4da07500d3f8b47d4, type: 2}
+  _playerPrefab: {fileID: 4577692149400617975, guid: c48732dcf3a67b74eb596eb63ae26c02, type: 3}
   _spawnPoints: []

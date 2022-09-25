@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEditor.Timeline;
 using UnityEngine;
 
@@ -46,6 +47,13 @@ public class PickUp : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        var emptyPos = other.ClosestPointOnBounds(transform.position);
+        var offset = (transform.position - emptyPos).normalized * 1.5f;
+
+        transform.position = emptyPos + offset;
+    }
     protected virtual void CollidedWithPlayer()
     {
 
