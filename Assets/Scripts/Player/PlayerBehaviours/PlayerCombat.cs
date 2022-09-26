@@ -33,7 +33,7 @@ public class PlayerCombat
     public void AddWeaponToInventory(GameObject weapon)
     {
         var newWeapon = weapon.GetComponent<Weapon>();
-        if (_weaponInventory.Count > 1)
+        if (_weaponInventory.Count >= 1)
         {
             newWeapon.Disable();
         }

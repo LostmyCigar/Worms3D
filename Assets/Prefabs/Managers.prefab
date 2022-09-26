@@ -46,10 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2eef7cc90de7c4c9682faabd9c5132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPositionCenter: {x: 0, y: 0, z: 0}
-  _spawnPositionArea: {x: 0, y: 0, z: 0}
-  _pickUps: []
-  _pickUpSpawnChance: 0
+  _spawnPositionCenter: {x: 0, y: 20, z: 0}
+  _spawnPositionArea: {x: 20, y: 1, z: 20}
+  _pickUps:
+  - {fileID: 9080185409497896170, guid: cab9569dbc6500246b2aeaaf97cb95c8, type: 3}
+  - {fileID: 6307395600147647895, guid: cf7d4fb6af8f9a84f896bd164e472c89, type: 3}
+  _pickUpSpawnChance: 50
 --- !u!114 &8949249194452563053
 MonoBehaviour:
   m_ObjectHideFlags: 0

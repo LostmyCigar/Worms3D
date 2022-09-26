@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
             _instance = this;
         }
         else Destroy(this);
+
+        _startPlayerCount = 0;
     }
 
     private void Start()

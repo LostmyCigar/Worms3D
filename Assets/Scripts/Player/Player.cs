@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
         _movement = new PlayerMovement(_inputHandler, _rb, _camera, _collider, _customGravityObject, _playerData);
         _combat = new PlayerCombat(_inputHandler, this);
         _health = new PlayerHealth(this, _playerData._hp);
+
     }
 
     private void OnEnable() => PlayerManager._activePlayers.Add(this);

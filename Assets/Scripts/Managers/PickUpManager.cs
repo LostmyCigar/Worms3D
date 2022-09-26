@@ -45,7 +45,7 @@ public class PickUpManager : MonoBehaviour
     public void PickUpSpawn()
     {
         var i = UnityEngine.Random.Range(0, _pickUps.Length);
-        Instantiate(_pickUps[i], RandomSpawnPosition, Quaternion.identity);
+        Instantiate(_pickUps[i], RandomSpawnPosition, _pickUps[i].transform.rotation);
     }
 
     private Vector3 RandomSpawnPosition //I doubt this was the cleanest way of doing this

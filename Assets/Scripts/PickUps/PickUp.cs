@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEditor.Timeline;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(CustomGravityObject))]
+[RequireComponent(typeof(MeshRenderer))]
 public class PickUp : MonoBehaviour
 {
     protected CustomGravityObject _gravity;
     protected Collider _collider;
+    protected Rigidbody _rb;
+
+    protected bool _rotate;
 
     protected bool _isFalling;
 
@@ -17,12 +22,21 @@ public class PickUp : MonoBehaviour
     {
         _collider = GetComponent<Collider>();
         _gravity = GetComponent<CustomGravityObject>();
+        _rb = GetComponent<Rigidbody>();
         _collider.isTrigger = true;
     }
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(FallAcceleration());
+    }
+
+    private void FixedUpdate()
+    {
+        if (_rotate)
+        {
+            transform.Rotate(new Vector3(0, 0.5f, 0), Space.World);
+        }
     }
 
     IEnumerator FallAcceleration()
@@ -39,23 +53,26 @@ public class PickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            CollidedWithPlayer();
+            var player = other.GetComponent<Player>();
+            CollidedWithPlayer(player);
         } else if (other.CompareTag("Ground"))
         {
             _gravity.gravityScale = 0;
             _isFalling = false;
+            _rb.velocity = Vector3.zero;
+            _rotate = true;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+   /* private void OnTriggerStay(Collider other)
     {
         var emptyPos = other.ClosestPointOnBounds(transform.position);
         var offset = (transform.position - emptyPos).normalized * 1.5f;
 
         transform.position = emptyPos + offset;
-    }
-    protected virtual void CollidedWithPlayer()
+    } */
+    protected virtual void CollidedWithPlayer(Player player)
     {
-
+        Destroy(gameObject);
     }
 }

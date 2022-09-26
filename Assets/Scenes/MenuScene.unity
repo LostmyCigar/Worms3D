@@ -1609,7 +1609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8949249194452563055, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _pickUps.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8949249194452563055, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _spawnRotationArea.x
@@ -1627,5 +1627,9 @@ PrefabInstance:
       propertyPath: _pickUps.Array.data[0]
       value: 
       objectReference: {fileID: 6541746042451702718, guid: 1855e40f9baa7d24d89b43ff3056f8f2, type: 3}
+    - target: {fileID: 8949249194452563055, guid: fcf32c507e5267e45818868a019319f5, type: 3}
+      propertyPath: _pickUps.Array.data[1]
+      value: 
+      objectReference: {fileID: 6307395600147647895, guid: cf7d4fb6af8f9a84f896bd164e472c89, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcf32c507e5267e45818868a019319f5, type: 3}
