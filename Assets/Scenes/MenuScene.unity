@@ -1540,6 +1540,18 @@ PrefabInstance:
       value: Managers
       objectReference: {fileID: 0}
     - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
+      propertyPath: _endTurnTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
+      propertyPath: _playerTurnTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
+      propertyPath: _timeBetweenTurns
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _playerMaterials.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1626,7 +1638,7 @@ PrefabInstance:
     - target: {fileID: 8949249194452563055, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _pickUps.Array.data[0]
       value: 
-      objectReference: {fileID: 6541746042451702718, guid: 1855e40f9baa7d24d89b43ff3056f8f2, type: 3}
+      objectReference: {fileID: 9080185409497896170, guid: cab9569dbc6500246b2aeaaf97cb95c8, type: 3}
     - target: {fileID: 8949249194452563055, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _pickUps.Array.data[1]
       value: 

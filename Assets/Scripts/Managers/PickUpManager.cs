@@ -13,6 +13,9 @@ public class PickUpManager : MonoBehaviour
     [SerializeField] private GameObject[] _pickUps = new GameObject[0];
     [SerializeField] [Range(0, 100)] private float _pickUpSpawnChance;
 
+    public delegate void PickUpSpawnEvent(Transform pickUp);
+    public event PickUpSpawnEvent OnPickUpSpawn;
+
     private void Awake()
     {
         if (_instance == null)
@@ -25,7 +28,7 @@ public class PickUpManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerManager.GetInstance().OnNewTurn += PickUpSpawnCheck;
+        PlayerManager.GetInstance().OnEndTurn += PickUpSpawnCheck;
     }
     public static PickUpManager GetInstance()
     {
@@ -45,7 +48,8 @@ public class PickUpManager : MonoBehaviour
     public void PickUpSpawn()
     {
         var i = UnityEngine.Random.Range(0, _pickUps.Length);
-        Instantiate(_pickUps[i], RandomSpawnPosition, _pickUps[i].transform.rotation);
+        var pickUp = Instantiate(_pickUps[i], RandomSpawnPosition, _pickUps[i].transform.rotation);
+        OnPickUpSpawn?.Invoke(pickUp.transform);
     }
 
     private Vector3 RandomSpawnPosition //I doubt this was the cleanest way of doing this

@@ -11,11 +11,11 @@ public class PlayerTurnText : MonoBehaviour
     {
         _playerText = GetComponent<TextMeshProUGUI>();
 
-        PlayerManager.GetInstance().OnNewTurn += UpdateText;
+        PlayerManager.GetInstance().OnStartTurn += UpdateText;
     }
 
-    private void UpdateText()
+    private void UpdateText(Transform transform)
     {
-        _playerText.text = PlayerManager._currentPlayer.gameObject.name;
+        _playerText.text = transform.name;
     }
 }

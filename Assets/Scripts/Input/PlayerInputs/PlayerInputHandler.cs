@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,8 +9,8 @@ public class PlayerInputHandler : MonoBehaviour
     public float _mouseX;
     public float _mouseY;
     public bool _leftClick;
-    public bool _rightClick;
     public bool _jumpInput;
+    public bool _weaponSwap;
 
     private void MoveInput(InputAction.CallbackContext context)
     {
@@ -40,25 +39,21 @@ public class PlayerInputHandler : MonoBehaviour
             _leftClick = false;
         }
     }
-    private void RightClickInput(InputAction.CallbackContext context)
+
+    private void WeaponSwapInput(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            _rightClick = true;
+            _weaponSwap = true;
         }
         else if (context.canceled)
         {
-            _rightClick = false;
+            _weaponSwap = false;
         }
-    }
-    private void MousePosInput(InputAction.CallbackContext context)
-    {
-        _mouseX = context.ReadValue<Vector2>().x;
-        _mouseY = context.ReadValue<Vector2>().y;
     }
 
 
     public void UseJumpInput() => _jumpInput = false;
     public void UseLeftClickInput() => _leftClick = false;
-    public void UseRightClickInput() => _rightClick = false;
+    public void UseWeaponSwapInput() => _weaponSwap = false;
 }

@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        transform.rotation = Quaternion.LookRotation(_cam.transform.forward + _aimOffset);
+     //   transform.rotation = Quaternion.LookRotation(_cam.transform.forward + _aimOffset);
     }
 
     private void SetAimLine()

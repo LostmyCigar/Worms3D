@@ -11,15 +11,15 @@ public class Player : MonoBehaviour
 
     private PlayerInputHandler _inputHandler;
     private Rigidbody _rb;
-    private Camera _camera;
     private Collider _collider;
+    private Camera _camera;
     private CustomGravityObject _customGravityObject;
     private Transform _weaponHolder;
 
     [SerializeField] private PlayerData _playerData;
 
-    private PlayerMovement _movement;
-    private PlayerCombat _combat;
+    public PlayerMovement _movement;
+    public PlayerCombat _combat;
     public PlayerHealth _health;
 
     #endregion
@@ -31,15 +31,14 @@ public class Player : MonoBehaviour
     {
         _inputHandler = GetComponent<PlayerInputHandler>();
         _rb = GetComponent<Rigidbody>();
+        _camera = Camera.main;
         _collider = GetComponent<Collider>();
         _customGravityObject = GetComponent<CustomGravityObject>();
-        _camera = Camera.main;
         _weaponHolder = transform.Find("WeaponHolder");
 
         _movement = new PlayerMovement(_inputHandler, _rb, _camera, _collider, _customGravityObject, _playerData);
         _combat = new PlayerCombat(_inputHandler, this);
         _health = new PlayerHealth(this, _playerData._hp);
-
     }
 
     private void OnEnable() => PlayerManager._activePlayers.Add(this);
@@ -47,9 +46,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        AddWeapon(_playerData._startWeapon);
+        _combat.AddWeaponToInventory(_playerData._startWeapon);
         _combat.InitWeaponInventory();
-        
     }
 
     private void Update()
@@ -69,21 +67,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void KnockBack(Vector3 dir, float force)
-    {
-        _rb.AddForce(dir * force, ForceMode.Impulse);
-    }
 
-    public void AddWeapon(GameObject weapon)
+    public GameObject CreateWeapon(GameObject weapon)
     {
-        var newWeapon = Instantiate(weapon, _weaponHolder);
-        _combat.AddWeaponToInventory(newWeapon);
+        return Instantiate(weapon, _weaponHolder);
     }
 
     public void StartPlayerTurn()
     {
-        _isCurrentPlayer = true;
         _weaponHolder.gameObject.SetActive(true);
+        _isCurrentPlayer = true;
     }
 
     public void EndPlayerTurn()

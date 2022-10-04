@@ -1,0 +1,66 @@
+{
+    "name": "CameraInput",
+    "maps": [
+        {
+            "name": "CameraControl",
+            "id": "25c3b65f-5ab3-4f86-b75a-a85e9250a466",
+            "actions": [
+                {
+                    "name": "CameraControl",
+                    "type": "Button",
+                    "id": "f2d0693d-6a3a-4094-bab5-dcb830654e11",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CameraMove",
+                    "type": "Value",
+                    "id": "7d8ea39b-e08d-4a5a-816e-7ed0f094e2fb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "abf5eda1-76ca-448f-a6e0-c47f9d57e871",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "CameraControl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d9c66de-ead2-4e31-8da9-2b11f37dba0a",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "CameraMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mouse",
+            "bindingGroup": "Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

@@ -3,10 +3,7 @@ using System.Diagnostics;
 public class PlayerHealth
 {
     public delegate void HealthUpdateEvent(Player player);
-    public delegate void PlayerDeathEvent(Player player);
-
     public event HealthUpdateEvent OnHealthUpdate;
-    public event PlayerDeathEvent OnPlayerDeath;
 
     private float _maxHealth;
     private float _health;
@@ -20,8 +17,8 @@ public class PlayerHealth
         set 
         { 
             _health = value;
-            OnHealthUpdate?.Invoke(_thisPlayer);
-
+            OnHealthUpdate?.Invoke(_thisPlayer); //Currently not in use. Included so that the healthbar can update during a players turn
+                                                 //Incase we want to enable something like friendly fire
             if (_health <= 0) { _thisPlayer.Die(); } 
             if (_health > _maxHealth) { Health = _maxHealth; }
         } 

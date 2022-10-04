@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MousePos",
-                    "type": "Value",
-                    "id": "f543f846-bdf0-44f4-b4a2-8324a455ace4",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "LeftClick",
                     "type": "Button",
                     "id": "d1b9138c-c442-4335-a061-aae08b4dc983",
@@ -33,18 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightClick",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "8f0bcfe3-af60-4c55-bb66-fee795d5b308",
+                    "id": "f7e13f89-a605-4dd4-8c6c-503630338f31",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "SwapWeapon",
                     "type": "Button",
-                    "id": "f7e13f89-a605-4dd4-8c6c-503630338f31",
+                    "id": "a2c2ba05-700a-4a95-9e8c-fb73c5d55fc5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -109,17 +100,6 @@
                 },
                 {
                     "name": "",
-                    "id": "85cd29b7-7c49-46ac-8ba4-d580ec00f4d0",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse",
-                    "action": "MousePos",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5a21c87e-84a2-4d3d-b8dd-45eb8c135130",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -131,23 +111,23 @@
                 },
                 {
                     "name": "",
-                    "id": "2b03e8e3-b778-4df2-ae33-b415a3aff290",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse",
-                    "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "acf2ae83-e14e-4751-a63b-1f4df8703bf4",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9a1d0a0-a324-410a-9822-1a4885456aa6",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "SwapWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

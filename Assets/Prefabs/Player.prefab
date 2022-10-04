@@ -238,6 +238,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f7e13f89-a605-4dd4-8c6c-503630338f31
     m_ActionName: Gameplay/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4577692149400617871}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: WeaponSwapInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a2c2ba05-700a-4a95-9e8c-fb73c5d55fc5
+    m_ActionName: Gameplay/SwapWeapon[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -261,6 +277,7 @@ MonoBehaviour:
   _leftClick: 0
   _rightClick: 0
   _jumpInput: 0
+  _weaponSwap: 0
 --- !u!114 &4577692149400617969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,7 +307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4577692150134626733
 Transform:
   m_ObjectHideFlags: 0

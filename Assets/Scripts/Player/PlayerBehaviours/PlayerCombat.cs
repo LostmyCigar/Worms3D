@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class PlayerCombat
@@ -32,24 +31,25 @@ public class PlayerCombat
 
     public void AddWeaponToInventory(GameObject weapon)
     {
-        var newWeapon = weapon.GetComponent<Weapon>();
+        var newWeapon = _player.CreateWeapon(weapon);
+        var weaponScript = newWeapon.GetComponent<Weapon>();
         if (_weaponInventory.Count >= 1)
         {
-            newWeapon.Disable();
+            weaponScript.Disable();
         }
-        _weaponInventory.Add(newWeapon);
+        _weaponInventory.Add(weaponScript);
     }
 
     private void SwitchActiveWeapon()
     {
-        if (_inputHandler._rightClick)
+        if (_inputHandler._weaponSwap)
         {
             _activeWeapon.Disable();
             _activeWeaponIndex++;
             _activeWeaponIndex %= _weaponInventory.Count;
             _activeWeapon = _weaponInventory[_activeWeaponIndex];
             _activeWeapon.Enable();
-            _inputHandler.UseRightClickInput();
+            _inputHandler.UseWeaponSwapInput();
         }
     }
 

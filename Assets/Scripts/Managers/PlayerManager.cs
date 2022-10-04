@@ -8,21 +8,39 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
 
-    public static PlayerManager _instance;
+    public static PlayerManager _instance;  //In hindsight I feel that i should split this class
+                                            //into a PlayerSpawnManager and a PlayerTurnManager but im prioritzing other things first
+                                            //Could make PlayerSpawnManager and a PlayerTurnManager components used by this class aswell
+
+    public delegate void StartTurnEvent(Transform player = null); //Is there a way to create events so that listeners doesnt have to take in the same parameters?
+                                                                  //Example: HealthBar updates on StartPlayerTurn but has no need for the transform,
+                                                                  //Does UpdateHealthBar() need to include a transform argument or is there a way to avoid this?
+    public event StartTurnEvent OnStartTurn;
+    public event Action OnEndTurn;
+
+    [Header("Between Turns")]
+    [Tooltip("This cannot be 0 since some weapons take time to shoot, also it would look bad")]
+    [Range(1, 4)] public float _endTurnTime;
+    public float _timeBetweenTurns;
+
+    [Space]
+    [Header("Player management")]
     public static List<Player> _activePlayers = new List<Player>();
-
-    public event Action OnNewTurn;
-
     private static int _startPlayerCount = 0;
     public int _currentPlayerCount;
-    public int _turnCount;
-    public int _roundCount;
+
+    [Space]
+    [Header("Turn management")]
+    public int _turnCount;  // These exist if we want to change things depending on how far into the game we are
+    public int _roundCount; // For example: PickUp Spawnrate. Not used as of now
+    public float _playerTurnTime;
+    private float _playerTurnTimer;
 
     [SerializeField] private Material[] _playerMaterials;
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private List<Transform> _spawnPoints;
 
-    public static Player _currentPlayer;
+    public static Player _currentPlayer; //Better to have this static or just let it be referenced through PlayerManager.GetInstance()? 
     private int _currentPlayerIndex;
 
     private void Awake()
@@ -93,22 +111,24 @@ public class PlayerManager : MonoBehaviour
     public void EndTurn()
     {
         StartCoroutine(EndturnWithWaitTime());
+
+
         IEnumerator EndturnWithWaitTime()
         {
-            yield return new WaitForSeconds(2);
-
+            yield return new WaitForSeconds(_endTurnTime);
             _currentPlayer.EndPlayerTurn();
+            OnEndTurn?.Invoke();
 
             _currentPlayerIndex++;
             _currentPlayerIndex %= _currentPlayerCount;
             _currentPlayer = _activePlayers[_currentPlayerIndex];
 
             _turnCount++;
-            if (_turnCount % _currentPlayerCount == 0) { _roundCount++; }
+            if (_turnCount % _currentPlayerCount == 0)  _roundCount++;
 
+            yield return new WaitForSeconds(_timeBetweenTurns);
+            OnStartTurn?.Invoke(_currentPlayer.transform);
             _currentPlayer.StartPlayerTurn();
-
-            OnNewTurn?.Invoke();
         }    
     }
 
