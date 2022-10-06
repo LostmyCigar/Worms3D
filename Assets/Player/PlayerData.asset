@@ -24,12 +24,16 @@ MonoBehaviour:
   _startFallingVelocity: 0
   _hp: 100
   _startWeapon: {fileID: 3844855169035904313, guid: 16dc4b12b2ca9784798ad0723a82c62b, type: 3}
+  _normalFOV: 50
   _cameraFollowSpeed: 0.2
   _cameraLookSpeed: 3
   _cameraPivotSpeed: 2
   _cameraPivotMin: -20
   _cameraPivotMax: 50
+  _aimFOV: 80
   _cameraAimLookSpeed: 3
   _cameraAimPivotSpeed: 2
-  _cameraAimPivotMin: -120
-  _cameraAimPivotMax: 120
+  _cameraAimLookMin: -50
+  _cameraAimLookMax: 50
+  _cameraAimPivotMin: -50
+  _cameraAimPivotMax: 70

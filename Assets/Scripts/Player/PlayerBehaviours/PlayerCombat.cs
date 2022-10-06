@@ -21,6 +21,7 @@ public class PlayerCombat
 
     public void Updates()
     {
+        HandleAim();
         HandleShoot();
         SwitchActiveWeapon();
     }
@@ -59,6 +60,7 @@ public class PlayerCombat
         if (_inputHandler._rightClick)
         {
             _activeWeapon.Aim();
+            Debug.Log("Aiming");
         }
     }
 

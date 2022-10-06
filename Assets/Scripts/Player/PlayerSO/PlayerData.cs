@@ -29,18 +29,25 @@ public class PlayerData : ScriptableObject
     public GameObject _startWeapon;
 
     [Header("Normal Camera")]
+    [Range(40, 100)] public float _normalFOV;
+    [Space]
     [Range(0.03f, 0.2f)] public float _cameraFollowSpeed;
-
+    [Space]
     [Range(0.1f, 5f)] public float _cameraLookSpeed;
     [Range(0.07f, 5f)] public float _cameraPivotSpeed;
-
+    [Space]
     [Range(-80, 0)] public float _cameraPivotMin;
     [Range(0, 80)] public float _cameraPivotMax;
 
     [Header("Aiming Camera")]
+    [Range(40, 100)] public float _aimFOV;
+    [Space]
     [Range(0.1f, 5f)] public float _cameraAimLookSpeed;
     [Range(0.07f, 5f)] public float _cameraAimPivotSpeed;
-
+    [Space]
+    [Range(-90, 0)] public float _cameraAimLookMin;
+    [Range(50, 120)] public float _cameraAimLookMax;
+    [Space]
     [Range(-120, -50)] public float _cameraAimPivotMin;
     [Range(50, 120)] public float _cameraAimPivotMax;
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
@@ -13,12 +12,15 @@ public class CameraHandler : MonoBehaviour
 
     public CameraNormalMode _normalMode;
     [SerializeField] private Transform _normalPoint;
+    [SerializeField] private Transform _pivotPoint;
+
 
     public CameraAimMode _aimMode;
     [SerializeField] private Transform _aimPoint;
 
     private Transform _cameraPositionTarget;
     [SerializeField] private Transform _cameraTransform;
+    private Camera _camera;
 
     private Transform _target;
     private Vector3 _velocity = Vector3.zero;
@@ -33,12 +35,13 @@ public class CameraHandler : MonoBehaviour
         else Destroy(this);
 
 
-        _cameraTransform = GetComponentInChildren<Camera>().transform;
+        _camera = GetComponentInChildren<Camera>();
+        _cameraTransform = _camera.transform;
         _inputHandler = GetComponent<CameraInputHandler>();
         if (_aimPoint == null) Debug.LogError("AimPoint is null");
 
-        _normalMode = new CameraNormalMode(this, _inputHandler, _playerData, transform, _normalPoint);
-        _aimMode = new CameraAimMode(this, _inputHandler, _playerData, transform, _aimPoint);
+        _normalMode = new CameraNormalMode(this, _inputHandler, _playerData, _camera, _normalPoint, _pivotPoint);
+        _aimMode = new CameraAimMode(this, _inputHandler, _playerData, _camera, _aimPoint);
 
         _state = _normalMode;
         _cameraPositionTarget = _state._positionTransform;
@@ -79,9 +82,11 @@ public class CameraHandler : MonoBehaviour
     {
         _state.Exit();
         _state = newState;
-        _state.Enter();
         _cameraPositionTarget = _state._positionTransform;
         _cameraTransform.parent = _cameraPositionTarget;
+        _cameraTransform.localRotation = Quaternion.identity;
+        _state.Enter();
+
     }
     private void SetNewCameraTarget(Transform target)
     {

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public abstract class CameraMode
@@ -8,22 +5,24 @@ public abstract class CameraMode
     protected CameraInputHandler _inputHandler;
     protected CameraHandler _handler;
     protected PlayerData _playerData;
-    protected Transform _baseTransform;
+    protected Transform _cameraTransform;
+    protected Camera _camera;
     public Transform _positionTransform;
 
-    public CameraMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData, Transform baseTransform, Transform positionTransform)
+    protected Quaternion _startRotation;
+
+    public CameraMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData, Camera camera, Transform positionTransform)
     {
         _handler = handler;
         _inputHandler = inputHandler;
         _playerData = playerData;
-        _baseTransform = baseTransform;
         _positionTransform = positionTransform;
+        _camera = camera;
     }
     
 
     public virtual void Enter()
     {
-
     }
     public virtual void Update()
     {
@@ -32,7 +31,6 @@ public abstract class CameraMode
 
     public virtual void Exit()
     {
-
     }
 
     protected virtual void ChangeStateCheck()
