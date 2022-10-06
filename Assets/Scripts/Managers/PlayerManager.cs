@@ -45,10 +45,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
+        if (_instance == null) _instance = this;
         else Destroy(this);
 
         _startPlayerCount = 0;
@@ -78,6 +75,7 @@ public class PlayerManager : MonoBehaviour
         _currentPlayerIndex = 0;
         _currentPlayer = _activePlayers[_currentPlayerIndex];
         _currentPlayer.StartPlayerTurn();
+        _currentPlayer.EnableWeapon();
     }
 
     private List<Transform> GetSpawnPoints()
@@ -115,8 +113,9 @@ public class PlayerManager : MonoBehaviour
 
         IEnumerator EndturnWithWaitTime()
         {
-            yield return new WaitForSeconds(_endTurnTime);
             _currentPlayer.EndPlayerTurn();
+            yield return new WaitForSeconds(_endTurnTime);
+            _currentPlayer.DisableWeapon();
             OnEndTurn?.Invoke();
 
             _currentPlayerIndex++;
@@ -129,6 +128,7 @@ public class PlayerManager : MonoBehaviour
             yield return new WaitForSeconds(_timeBetweenTurns);
             OnStartTurn?.Invoke(_currentPlayer.transform);
             _currentPlayer.StartPlayerTurn();
+            _currentPlayer.EnableWeapon();
         }    
     }
 

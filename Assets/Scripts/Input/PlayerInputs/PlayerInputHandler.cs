@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     public float _mouseX;
     public float _mouseY;
     public bool _leftClick;
+    public bool _rightClick;
     public bool _jumpInput;
     public bool _weaponSwap;
 
@@ -37,6 +39,18 @@ public class PlayerInputHandler : MonoBehaviour
         else if (context.canceled)
         {
             _leftClick = false;
+        }
+    }
+
+    private void AimInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {   
+            _rightClick = true;
+        }
+        else if (context.canceled)
+        {
+            _rightClick = false;
         }
     }
 

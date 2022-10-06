@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3869bb71e5ce104a9044fec10252ffb, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  _turnTime: 20
   _moveSpeed: 7
   _rotationSpeed: 10
   _ground:
@@ -23,3 +24,12 @@ MonoBehaviour:
   _startFallingVelocity: 0
   _hp: 100
   _startWeapon: {fileID: 3844855169035904313, guid: 16dc4b12b2ca9784798ad0723a82c62b, type: 3}
+  _cameraFollowSpeed: 0.2
+  _cameraLookSpeed: 3
+  _cameraPivotSpeed: 2
+  _cameraPivotMin: -20
+  _cameraPivotMax: 50
+  _cameraAimLookSpeed: 3
+  _cameraAimPivotSpeed: 2
+  _cameraAimPivotMin: -120
+  _cameraAimPivotMax: 120

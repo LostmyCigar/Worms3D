@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CameraInputHandler : MonoBehaviour
 {
+    private CameraInputHandler _instance;
 
     public Vector2 _mouseDelta;
     public bool _cameraControlInput;

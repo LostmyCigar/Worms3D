@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
 
-
+    [Header("Turns")]
+    public float _turnTime;
 
     [Header("Movement")]
     [Range(5f, 30f)]
@@ -27,11 +28,20 @@ public class PlayerData : ScriptableObject
     public float _hp;
     public GameObject _startWeapon;
 
-    [Header("Camera")]
-    [Range(0.03f, 0.2f)] public float _cameraLookSpeed;
+    [Header("Normal Camera")]
     [Range(0.03f, 0.2f)] public float _cameraFollowSpeed;
-    [Range(0.01f, 0.08f)] public float _cameraPivotSpeed;
 
-    [Range(-50, 0)] public float _cameraPivotMin;
-    [Range(0, 50)] public float _cameraPivotMax;
+    [Range(0.1f, 5f)] public float _cameraLookSpeed;
+    [Range(0.07f, 5f)] public float _cameraPivotSpeed;
+
+    [Range(-80, 0)] public float _cameraPivotMin;
+    [Range(0, 80)] public float _cameraPivotMax;
+
+    [Header("Aiming Camera")]
+    [Range(0.1f, 5f)] public float _cameraAimLookSpeed;
+    [Range(0.07f, 5f)] public float _cameraAimPivotSpeed;
+
+    [Range(-120, -50)] public float _cameraAimPivotMin;
+    [Range(50, 120)] public float _cameraAimPivotMax;
+
 }

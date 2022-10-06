@@ -16,6 +16,7 @@ public class PlayerCombat
         _inputHandler = inputHandler;
         _activeWeaponIndex = 0;
         _player = player;
+
     }
 
     public void Updates()
@@ -50,6 +51,14 @@ public class PlayerCombat
             _activeWeapon = _weaponInventory[_activeWeaponIndex];
             _activeWeapon.Enable();
             _inputHandler.UseWeaponSwapInput();
+        }
+    }
+
+    private void HandleAim()
+    {
+        if (_inputHandler._rightClick)
+        {
+            _activeWeapon.Aim();
         }
     }
 

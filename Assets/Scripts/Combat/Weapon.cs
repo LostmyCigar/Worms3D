@@ -8,7 +8,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected Transform _shootPoint;
     private Camera _cam;
     [SerializeField] protected Vector3 _aimOffset = new Vector3(0f, 0.4f, 0f);
+    protected Vector3 middlePoint = new Vector3(Screen.width / 2, Screen.height / 2, 0);
     private LineRenderer _aimLine;
+
     public virtual void Shoot() { }
 
 
@@ -23,10 +25,29 @@ public class Weapon : MonoBehaviour
      //   transform.rotation = Quaternion.LookRotation(_cam.transform.forward + _aimOffset);
     }
 
+    public void Aim()
+    {
+        RaycastHit hit;
+        var ray = _cam.ScreenPointToRay(middlePoint);
+        Vector3 aimTarget;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            aimTarget = hit.point;
+            Debug.Log("hit");
+        }
+        transform.rotation = Quaternion.LookRotation(_cam.transform.forward + _aimOffset);
+
+    }
+    public void ResetAim()
+    {
+        transform.rotation = Quaternion.identity;
+    }
     private void SetAimLine()
     {
     
     }
+
     public void Enable()
     {
         gameObject.SetActive(true);

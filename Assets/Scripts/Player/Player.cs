@@ -75,13 +75,20 @@ public class Player : MonoBehaviour
 
     public void StartPlayerTurn()
     {
-        _weaponHolder.gameObject.SetActive(true);
         _isCurrentPlayer = true;
     }
 
     public void EndPlayerTurn()
     {
         _isCurrentPlayer = false;
+    }
+
+    public void EnableWeapon()
+    {
+        _weaponHolder.gameObject.SetActive(true);
+    }
+    public void DisableWeapon()
+    {
         _weaponHolder.gameObject.SetActive(false);
     }
 
