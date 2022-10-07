@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     public event Action OnEndTurn;
 
     [Header("Between Turns")]
-    [Tooltip("This cannot be 0 since some weapons take time to shoot, also it would look bad")]
+    [Tooltip("This cannot be 0 since some weapons take time to shoot, also, it would look bad")]
     [Range(1, 4)] public float _endTurnTime;
     public float _timeBetweenTurns;
 
@@ -25,14 +25,17 @@ public class PlayerManager : MonoBehaviour
     [Header("Player management")]
     public static List<Player> _activePlayers = new List<Player>();
     private static int _startPlayerCount = 0;
-    public int _currentPlayerCount;
+    [HideInInspector] public int _currentPlayerCount;
 
     [Space]
     [Header("Turn management")]
-    public int _turnCount;  // These exist if we want to change things depending on how far into the game we are
-    public int _roundCount; // For example: PickUp Spawnrate. Not used as of now
-    public float _playerTurnTime;
-    private float _playerTurnTimer;
+    [HideInInspector] public int _turnCount;  // These exist if we want to change things depending on how far into the game we are
+    [HideInInspector] public int _roundCount; // For example: PickUp Spawnrate. Not used as of now
+    public float _playerTurnTimeMax;
+    [HideInInspector] public float _playerTurnTimer;
+    [SerializeField] private float _bonusStartTime;
+    [SerializeField] private float _bonusEndTime;
+    private bool _isPlayerTurn;
 
     [SerializeField] private Material[] _playerMaterials;
     [SerializeField] private GameObject _playerPrefab;
@@ -52,6 +55,11 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         SceneManager.GetInstance().PlaySceneLoad += InitializePlayers;
+    }
+
+    private void FixedUpdate()
+    {
+        TurnTimer();
     }
 
     public static PlayerManager GetInstance()
@@ -74,6 +82,7 @@ public class PlayerManager : MonoBehaviour
         _currentPlayer = _activePlayers[_currentPlayerIndex];
         _currentPlayer.StartPlayerTurn();
         _currentPlayer.EnableWeapon();
+        StartTurnTimer();
     }
 
     private List<Transform> GetSpawnPoints()
@@ -112,6 +121,7 @@ public class PlayerManager : MonoBehaviour
         IEnumerator EndturnWithWaitTime()
         {
             _currentPlayer.EndPlayerTurn();
+            EndTurnTimer();
             yield return new WaitForSeconds(_endTurnTime);
             _currentPlayer.DisableWeapon();
             OnEndTurn?.Invoke();
@@ -125,9 +135,36 @@ public class PlayerManager : MonoBehaviour
 
             yield return new WaitForSeconds(_timeBetweenTurns);
             OnStartTurn?.Invoke(_currentPlayer.transform);
+            StartTurnTimer();
             _currentPlayer.StartPlayerTurn();
             _currentPlayer.EnableWeapon();
         }    
+    }
+
+    private void TurnTimer()
+    {
+        if (_isPlayerTurn)
+        {
+            _playerTurnTimer -= Time.fixedDeltaTime;
+            if (_playerTurnTimer <= -_bonusEndTime)
+            {
+                EndTurn();
+            }
+        } else if (_playerTurnTimer < _playerTurnTimeMax) 
+        {
+            _playerTurnTimer += Time.fixedDeltaTime * 10; //Should be a nice little effect to the UI
+        }
+    }
+
+    private void EndTurnTimer()
+    {
+        _isPlayerTurn = false;   
+    }
+
+    private void StartTurnTimer()
+    {
+        _isPlayerTurn = true;
+        _playerTurnTimer = _playerTurnTimeMax + _bonusStartTime;
     }
 
     #endregion
