@@ -4,26 +4,20 @@ using UnityEngine;
 
 public class CameraNormalMode : CameraMode
 {
-    private float _lookAngle;
-    private float _pivotAngle;
-    private Transform _baseTransform;
-    private Vector3 rotation = Vector3.zero;
 
-    public CameraNormalMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData, Camera camera, Transform baseTransform, Transform positionTransform) : base(handler, inputHandler, playerData, camera ,positionTransform)
+    public CameraNormalMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData,
+        Camera camera, Transform baseTransform, Transform positionTransform)
+        : base(handler, inputHandler, playerData, camera, baseTransform, positionTransform)
     {
-        _baseTransform = baseTransform;
     }
+
     public override void Enter()
     {
-        _camera.fieldOfView = _playerData._normalFOV;
-        _startRotation = _baseTransform.rotation;
+   //     _camera.fieldOfView = _playerData._normalFOV;
         base.Enter();
     }
     public override void Exit()
     {
-        _lookAngle = _startRotation.eulerAngles.y;
-        _pivotAngle = _startRotation.eulerAngles.x;
-        _baseTransform.rotation = _startRotation;
         base.Exit();
     }
     public override void Update()

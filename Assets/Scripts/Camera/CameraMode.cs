@@ -7,15 +7,20 @@ public abstract class CameraMode
     protected PlayerData _playerData;
     protected Transform _cameraTransform;
     protected Camera _camera;
+    protected Transform _baseTransform;
     public Transform _positionTransform;
 
-    protected Quaternion _startRotation;
+    protected static float _lookAngle;
+    protected static float _pivotAngle;
+    protected static Vector3 rotation = Vector3.zero;
+    //  protected Quaternion _startRotation;
 
-    public CameraMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData, Camera camera, Transform positionTransform)
+    public CameraMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData, Camera camera, Transform baseTransform, Transform positionTransform)
     {
         _handler = handler;
         _inputHandler = inputHandler;
         _playerData = playerData;
+        _baseTransform = baseTransform;
         _positionTransform = positionTransform;
         _camera = camera;
     }

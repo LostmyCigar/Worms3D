@@ -10,7 +10,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Material _bulletMaterial;
     [SerializeField] private GameObject _hitParticles;
     [SerializeField] private Transform _shootPoint;
-    [SerializeField] private Vector3 _aimOffset = new Vector3(0f, 0.4f, 0f);
     [Space]
     [SerializeField] private float _damage;
     [Space]
@@ -27,16 +26,18 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int _bulletCount;
 
     private Camera _cam;
-    private Vector3 middlePoint = new Vector3(Screen.width / 2, Screen.height / 2, 0);
     private LineRenderer _aimLine;
+    private LayerMask _wallLayer;
+    private RaycastHit hit;
 
-  
+
 
     private void Awake()
     {
         _cam = Camera.main;
         _aimLine = GetComponent<LineRenderer>();
         _aimLine.useWorldSpace = false;
+        _wallLayer = LayerMask.NameToLayer("Ground");
     }
     public void Enable()
     {
@@ -67,6 +68,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator MultipleBullets()
     {
+        yield return new WaitForSeconds(_timeBetweenBullets);
         for (int i = 0; i < _bulletCount - 1; i++)
         {
             SpawnBullet();
@@ -79,21 +81,37 @@ public class Weapon : MonoBehaviour
     #region Aim
     public void Aim()
     {
-        RaycastHit hit;
-        var ray = _cam.ScreenPointToRay(middlePoint);
-        Vector3 aimTarget;
 
-        if (Physics.Raycast(ray, out hit))
+        Vector2 centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+        Ray ray = _cam.ScreenPointToRay(centerPoint);
+
+
+        if (Physics.Raycast(ray, out hit, 1024f, _wallLayer))
         {
-            aimTarget = hit.point;
-            transform.rotation = Quaternion.LookRotation(aimTarget + _aimOffset);
-        }
-    }
-    public void ResetAim()
-    {
-        transform.rotation = Quaternion.identity;
+            var targetRotation1 = Quaternion.LookRotation(hit.point);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation1, 0.3f);
+        } else transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, 0.3f);
+
+        Debug.Log(hit.point);
+
+
     }
 
     #endregion
 
+
+    private void OnDrawGizmos()
+    {
+        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(ray);
+
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _wallLayer))
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(hit.point, 0.5f);
+        }
+    }
 }

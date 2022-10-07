@@ -5,24 +5,23 @@ using UnityEngine;
 public class CameraAimMode : CameraMode
 {
 
-    private float _lookAngle;
-    private float _pivotAngle;
-    private Vector3 rotation = Vector3.zero;
-    public CameraAimMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData, Camera camera, Transform positionTransform) : base(handler, inputHandler, playerData, camera, positionTransform)
+    public CameraAimMode(CameraHandler handler, CameraInputHandler inputHandler, PlayerData playerData,
+        Camera camera, Transform baseTransform, Transform positionTransform)
+        : base(handler, inputHandler, playerData, camera, baseTransform, positionTransform)
     {
     }
 
     public override void Enter()
     {
-        _camera.fieldOfView = _playerData._aimFOV;
-        _startRotation = _positionTransform.rotation;
+   //     _camera.fieldOfView = _playerData._aimFOV;
+  //      _startRotation = _positionTransform.rotation;
     }
 
     public override void Exit()
     {
-        _lookAngle = _startRotation.eulerAngles.y;
-        _pivotAngle = _startRotation.eulerAngles.x;
-        _positionTransform.rotation = _startRotation;
+  //      _lookAngle = _startRotation.eulerAngles.y;
+  //      _pivotAngle = _startRotation.eulerAngles.x;
+  //      _positionTransform.rotation = _startRotation;
     }
     public override void Update()
     {
@@ -43,8 +42,7 @@ public class CameraAimMode : CameraMode
         var mouseY = _inputHandler._mouseDelta.y;
 
         _lookAngle += (mouseX * _playerData._cameraAimLookSpeed) * Time.deltaTime;
-        _lookAngle = Mathf.Clamp(_lookAngle, _playerData._cameraAimLookMin, _playerData._cameraAimLookMax);
-
+      //  _lookAngle = Mathf.Clamp(_lookAngle, _playerData._cameraAimLookMin, _playerData._cameraAimLookMax);
 
         _pivotAngle += (mouseY * _playerData._cameraAimLookSpeed) * Time.deltaTime;
         _pivotAngle = Mathf.Clamp(_pivotAngle, _playerData._cameraAimPivotMin, _playerData._cameraAimPivotMax);
@@ -52,7 +50,7 @@ public class CameraAimMode : CameraMode
         rotation.y = _lookAngle;
         rotation.x = -_pivotAngle;
         Quaternion rotationQuaternion = Quaternion.Euler(rotation);
-        _positionTransform.rotation = rotationQuaternion; //Im about 80% sure that there is something i can use to avoid code repetition between camera modes
+        _baseTransform.rotation = rotationQuaternion; //Im about 80% sure that there is something i can use to avoid code repetition between camera modes
                                                           //since the rotation function is very similar, but i cant remeber right now
     }
 

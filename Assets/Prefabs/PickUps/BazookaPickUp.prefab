@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596f8d1283927bc4595ccf7a1af00d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bazookaPrefab: {fileID: 6541746042451702718, guid: 1855e40f9baa7d24d89b43ff3056f8f2, type: 3}
+  _bazookaPrefab: {fileID: 3920757795053828838, guid: 1855e40f9baa7d24d89b43ff3056f8f2, type: 3}

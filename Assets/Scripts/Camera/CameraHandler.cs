@@ -12,11 +12,11 @@ public class CameraHandler : MonoBehaviour
 
     public CameraNormalMode _normalMode;
     [SerializeField] private Transform _normalPoint;
-    [SerializeField] private Transform _pivotPoint;
+    [SerializeField] private Transform _normalPivotPoint;
 
 
     public CameraAimMode _aimMode;
-    [SerializeField] private Transform _aimPoint;
+    [SerializeField] private Transform _aimPivotPoint;
 
     private Transform _cameraPositionTarget;
     [SerializeField] private Transform _cameraTransform;
@@ -34,20 +34,20 @@ public class CameraHandler : MonoBehaviour
         if (_instance == null) _instance = this;
         else Destroy(this);
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         _camera = GetComponentInChildren<Camera>();
         _cameraTransform = _camera.transform;
         _inputHandler = GetComponent<CameraInputHandler>();
-        if (_aimPoint == null) Debug.LogError("AimPoint is null");
+        if (_aimPivotPoint == null) Debug.LogError("AimPoint is null");
 
-        _normalMode = new CameraNormalMode(this, _inputHandler, _playerData, _camera, _normalPoint, _pivotPoint);
-        _aimMode = new CameraAimMode(this, _inputHandler, _playerData, _camera, _aimPoint);
+        _normalMode = new CameraNormalMode(this, _inputHandler, _playerData, _camera, _normalPoint, _normalPivotPoint);
+        _aimMode = new CameraAimMode(this, _inputHandler, _playerData, _camera, _normalPoint, _aimPivotPoint);
 
         _state = _normalMode;
         _cameraPositionTarget = _state._positionTransform;
     }
-
-
     void Start()
     {
         _target = PlayerManager._currentPlayer.transform;
@@ -55,14 +55,13 @@ public class CameraHandler : MonoBehaviour
         PlayerManager.GetInstance().OnStartTurn += SetNewCameraTarget;
         PickUpManager.GetInstance().OnPickUpSpawn += SetNewCameraTarget;
     }
-
-
     private void LateUpdate()
     {
         FollowTarget();
         CameraPosition();
         _state.Update();
     }
+
 
     private void FollowTarget()
     {
@@ -91,6 +90,21 @@ public class CameraHandler : MonoBehaviour
     private void SetNewCameraTarget(Transform target)
     {
         _target = target;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, 0.5f);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(_aimPivotPoint.position, 0.5f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(_normalPoint.position, 0.5f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(_normalPivotPoint.position, 0.5f);
     }
 
 
