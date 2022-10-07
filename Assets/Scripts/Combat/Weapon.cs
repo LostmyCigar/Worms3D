@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
 
     private Camera _cam;
     private LineRenderer _aimLine;
-    private LayerMask _wallLayer;
+    [SerializeField] private LayerMask _groundLayer;
     private RaycastHit hit;
 
 
@@ -36,8 +36,7 @@ public class Weapon : MonoBehaviour
     {
         _cam = Camera.main;
         _aimLine = GetComponent<LineRenderer>();
-        _aimLine.useWorldSpace = false;
-        _wallLayer = LayerMask.NameToLayer("Ground");
+        _aimLine.useWorldSpace = true;
     }
     public void Enable()
     {
@@ -82,36 +81,19 @@ public class Weapon : MonoBehaviour
     public void Aim()
     {
 
-        Vector2 centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+        Vector2 centerPoint = new Vector3(Screen.width / 2, Screen.height / 2, -1);
         Ray ray = _cam.ScreenPointToRay(centerPoint);
 
 
-        if (Physics.Raycast(ray, out hit, 1024f, _wallLayer))
+        if (Physics.Raycast(ray, out hit, 1024f, _groundLayer))
         {
-            var targetRotation1 = Quaternion.LookRotation(hit.point);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation1, 0.3f);
-        } else transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, 0.3f);
+            transform.LookAt(hit.point);
+        }// else transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.identity, 0.3f);
 
-        Debug.Log(hit.point);
+
 
 
     }
 
     #endregion
-
-
-    private void OnDrawGizmos()
-    {
-        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(ray);
-
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _wallLayer))
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(hit.point, 0.5f);
-        }
-    }
 }

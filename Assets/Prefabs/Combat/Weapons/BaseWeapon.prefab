@@ -266,7 +266,6 @@ MonoBehaviour:
   _bulletMaterial: {fileID: 2100000, guid: 7c7f7e923f30d8b4193dfc9a7eb33ea9, type: 2}
   _hitParticles: {fileID: 0}
   _shootPoint: {fileID: 7078300109888825954}
-  _aimOffset: {x: 0, y: 0.4, z: 0}
   _damage: 10
   _explosive: 0
   _explosionRange: 0
@@ -276,6 +275,9 @@ MonoBehaviour:
   _multipleBullets: 1
   _timeBetweenBullets: 0.2
   _bulletCount: 3
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &7078300110901169633
 GameObject:
   m_ObjectHideFlags: 0

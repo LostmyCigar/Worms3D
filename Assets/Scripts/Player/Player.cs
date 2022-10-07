@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
         if (_isCurrentPlayer)
         {
             _movement.PhysicsUpdates();
+            _combat.PhysicsUpdates();
         }
     }
 

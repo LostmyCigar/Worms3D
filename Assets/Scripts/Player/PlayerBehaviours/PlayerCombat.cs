@@ -21,9 +21,13 @@ public class PlayerCombat
 
     public void Updates()
     {
-        HandleAim();
         HandleShoot();
         SwitchActiveWeapon();
+    }
+
+    public void PhysicsUpdates()
+    {
+        HandleAim();
     }
     
     public void InitWeaponInventory()
