@@ -69,7 +69,7 @@ public class PlayerMovement
         _rb.transform.rotation = Quaternion.Slerp(_rb.transform.rotation, tr, _playerData._rotationSpeed * Time.deltaTime);
     }
 
-
+    
     #region Jump/grounded
     private void HandleJump()
     {
@@ -101,5 +101,10 @@ public class PlayerMovement
     }
 
     #endregion
+
+    public void KnockBack(float force, Vector3 dir)
+    {
+        _rb.AddForce(dir * force);
+    }
 
 }
