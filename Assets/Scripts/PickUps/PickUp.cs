@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
-using UnityEditor.Timeline;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(CustomGravityObject))]

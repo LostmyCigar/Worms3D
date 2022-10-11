@@ -71,8 +71,6 @@ public class PickUpManager : MonoBehaviour
             int yPosition = Mathf.RoundToInt(UnityEngine.Random.Range(yPositionMin, yPositionMax));
             int zPosition = Mathf.RoundToInt(UnityEngine.Random.Range(zPositionMin, zPositionMax));
 
-            Debug.Log(new Vector3(xPosition, yPosition, zPosition));
-
             return new Vector3(xPosition, yPosition, zPosition);
         }
     }

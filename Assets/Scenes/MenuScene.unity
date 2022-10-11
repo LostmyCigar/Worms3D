@@ -1540,6 +1540,10 @@ PrefabInstance:
       value: Managers
       objectReference: {fileID: 0}
     - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
+      propertyPath: _bonusTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _endTurnTime
       value: 2
       objectReference: {fileID: 0}
@@ -1550,6 +1554,10 @@ PrefabInstance:
     - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _timeBetweenTurns
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
+      propertyPath: _playerTurnTimeMax
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8949249194452563052, guid: fcf32c507e5267e45818868a019319f5, type: 3}
       propertyPath: _playerMaterials.Array.size
